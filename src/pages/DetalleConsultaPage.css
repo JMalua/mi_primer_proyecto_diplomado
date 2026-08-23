@@ -1,0 +1,281 @@
+/* ============================================
+   DetalleConsultaPage — Estilos
+   ============================================ */
+
+.detalle-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ─── Top bar (Volver + Copiar) ──────────── */
+.detalle-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.btn-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--azul-institucional);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-color);
+  background-color: var(--bg-card);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-volver:hover {
+  border-color: var(--azul-institucional);
+  box-shadow: var(--shadow-sm);
+  background-color: var(--azul-institucional-light);
+}
+
+.btn-copiar-enlace {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-family);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: var(--azul-institucional);
+  border: none;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-copiar-enlace:hover {
+  background-color: var(--azul-institucional-hover);
+  box-shadow: 0 4px 12px rgba(0, 51, 153, 0.3);
+}
+
+.btn-copiar-enlace--copiado {
+  background-color: #059669;
+}
+
+.btn-copiar-enlace--copiado:hover {
+  background-color: #047857;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
+
+/* ─── Tarjeta principal ──────────────────── */
+.detalle-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.detalle-card-accent {
+  height: 5px;
+}
+
+.detalle-card-accent--agua {
+  background: linear-gradient(90deg, #0ea5e9, #0284c7);
+}
+
+.detalle-card-accent--basuras {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.detalle-card-accent--alumbrado {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+/* ─── Cabecera ───────────────────────────── */
+.detalle-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.75rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detalle-categoria-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.detalle-categoria-icon--agua {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.detalle-categoria-icon--basuras {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.detalle-categoria-icon--alumbrado {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.detalle-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.detalle-header-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.detalle-radicado-id {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+/* ─── Secciones ──────────────────────────── */
+.detalle-section {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detalle-section:last-child {
+  border-bottom: none;
+}
+
+.detalle-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  color: var(--azul-institucional);
+}
+
+.detalle-section-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detalle-descripcion {
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+/* ─── Grid de datos ──────────────────────── */
+.detalle-datos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.detalle-dato {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.detalle-dato-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.detalle-dato-valor {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding-left: 1.4rem;
+}
+
+/* ─── Respuesta oficial ──────────────────── */
+.detalle-section--respuesta {
+  background-color: var(--bg-principal);
+}
+
+.detalle-respuesta-content {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--azul-institucional);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem 1.5rem;
+}
+
+.detalle-respuesta-content p {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+}
+
+/* ─── Estados ────────────────────────────── */
+.detalle-estado-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+  padding: 3rem 1.5rem;
+}
+
+.detalle-error-actions {
+  margin-top: 0.75rem;
+}
+
+/* ─── Responsividad ──────────────────────── */
+@media (max-width: 768px) {
+  .detalle-page {
+    padding: 1.25rem 1rem 3rem;
+  }
+
+  .detalle-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem 1.25rem;
+    gap: 1rem;
+  }
+
+  .detalle-radicado-id {
+    font-size: 1.2rem;
+  }
+
+  .detalle-section {
+    padding: 1.25rem;
+  }
+
+  .detalle-datos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detalle-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-volver,
+  .btn-copiar-enlace {
+    justify-content: center;
+  }
+}

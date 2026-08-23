@@ -1,0 +1,102 @@
+[
+  {
+    "id": "RAD-2026-001",
+    "solicitante": "Carlos Alberto Restrepo",
+    "categoria": "Agua",
+    "descripcion": "Fuga de agua potable en la vía pública frente a la Manzana 4 Casa 12 del barrio El Salado, provocando baja presión en los hogares vecinos.",
+    "estado": "En trámite",
+    "fechaRadicacion": "2026-08-18",
+    "plazoLegal": "15 días hábiles",
+    "respuestaOficial": "El caso ha sido asignado a la cuadrilla de mantenimiento técnico para inspección y reparación en sitio."
+  },
+  {
+    "id": "RAD-2026-002",
+    "solicitante": "Lucía Elena Jaramillo",
+    "categoria": "Basuras",
+    "descripcion": "Acumulación de escombros y residuos sólidos no recogidos en la esquina de la Calle 45 con Carrera 22 desde hace 4 días.",
+    "estado": "Resuelto",
+    "fechaRadicacion": "2026-08-05",
+    "plazoLegal": "10 días hábiles",
+    "respuestaOficial": "Se realizó operativo especial de limpieza y recolección de escombros el día 12 de agosto de 2026 mediante camión recolector de ruta extraordinaria."
+  },
+  {
+    "id": "RAD-2026-003",
+    "solicitante": "Jorge Iván Morales",
+    "categoria": "Alumbrado",
+    "descripcion": "Luminaria LED fuera de servicio en el parque principal frente a la cancha sintética, generando sector oscuro en horas nocturnas.",
+    "estado": "En trámite",
+    "fechaRadicacion": "2026-08-20",
+    "plazoLegal": "15 días hábiles",
+    "respuestaOficial": "Programada visita técnica de reposición de fotocelda y bombilla LED para el 25 de agosto de 2026."
+  },
+  {
+    "id": "RAD-2026-004",
+    "solicitante": "Sandra Milena Bermúdez",
+    "categoria": "Agua",
+    "descripcion": "Reclamación por cobro excesivo en la factura del servicio de agua potable del periodo julio-agosto correspondiente a la matrícula 849201.",
+    "estado": "Resuelto",
+    "fechaRadicacion": "2026-07-28",
+    "plazoLegal": "15 días hábiles",
+    "respuestaOficial": "Tras revisión técnica de medidores, se constató un error de lectura. Se aplicó nota crédito por $48.500 en la siguiente facturación."
+  },
+  {
+    "id": "RAD-2026-005",
+    "solicitante": "Andrés Felipe Ospina",
+    "categoria": "Basuras",
+    "descripcion": "Solicitud de instalación de contenedores comunitarios de basura en la Carrera 15 con Calle 10 para evitar dispersión de residuos por animales.",
+    "estado": "En trámite",
+    "fechaRadicacion": "2026-08-15",
+    "plazoLegal": "20 días hábiles",
+    "respuestaOficial": "Solicitud en estudio de viabilidad técnica y presupuestal por parte de la Subdirección de Aseo Urbano."
+  },
+  {
+    "id": "RAD-2026-006",
+    "solicitante": "Gloria Inés Zapata",
+    "categoria": "Alumbrado",
+    "descripcion": "Poste de alumbrado público con fisuras en la base y cables expuestos sobre la Transversal 8 Sur tras colisión vehicular.",
+    "estado": "Resuelto",
+    "fechaRadicacion": "2026-08-01",
+    "plazoLegal": "5 días hábiles",
+    "respuestaOficial": "Atención prioritaria de emergencia efectuada el 03 de agosto de 2026: reubicación y cambio de poste de concreto dañado."
+  },
+  {
+    "id": "RAD-2026-007",
+    "solicitante": "Mateo Ramírez Castro",
+    "categoria": "Agua",
+    "descripcion": "Suspensión no programada del servicio de agua potable en el sector San Fernando durante más de 12 horas consecutivas.",
+    "estado": "Resuelto",
+    "fechaRadicacion": "2026-08-10",
+    "plazoLegal": "10 días hábiles",
+    "respuestaOficial": "Causa atribuida a daño fortuito en tubería matriz de 12 pulgadas. El servicio fue restablecido plenamente a las 22:00 horas del mismo día."
+  },
+  {
+    "id": "RAD-2026-008",
+    "solicitante": "Diana Patricia Salazar",
+    "categoria": "Basuras",
+    "descripcion": "Incumplimiento recurrente en los horarios de la ruta de recolección de basuras los días martes y jueves en el barrio Los Alpes.",
+    "estado": "En trámite",
+    "fechaRadicacion": "2026-08-19",
+    "plazoLegal": "15 días hábiles",
+    "respuestaOficial": "Notificación enviada a la empresa concesionaria de aseo para ajuste de frecuencias y supervisión de ruta."
+  },
+  {
+    "id": "RAD-2026-009",
+    "solicitante": "Hernán Darío Vargas",
+    "categoria": "Alumbrado",
+    "descripcion": "Solicitud de expansión de la red de alumbrado público en el sendero peatonal del barrio La Esperanza.",
+    "estado": "En trámite",
+    "fechaRadicacion": "2026-08-12",
+    "plazoLegal": "30 días hábiles",
+    "respuestaOficial": "La solicitud fue incluida en el plan de inversión y expansión de alumbrado público para evaluación del segundo semestre."
+  },
+  {
+    "id": "RAD-2026-010",
+    "solicitante": "Claudia Marcela Rincón",
+    "categoria": "Agua",
+    "descripcion": "Baja calidad y presencia de turbiedad en el agua potable suministrada a la vivienda ubicada en la Calle 32 #14-05.",
+    "estado": "Resuelto",
+    "fechaRadicacion": "2026-08-02",
+    "plazoLegal": "10 días hábiles",
+    "respuestaOficial": "Se efectuó purga de hidrantes y toma de muestras fisicoquímicas en laboratorio, confirmando que el agua cumple con los estándares de potabilidad."
+  }
+]

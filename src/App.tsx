@@ -1,7 +1,8 @@
 import { Droplet, Trash2, Lightbulb, Building2, Search, PhoneCall } from 'lucide-react';
 import { TarjetaTramite } from './components/TarjetaTramite';
+import { ConsultasPage } from './pages/ConsultasPage';
 
-export function App() {
+export function App({ children }: { children?: React.ReactNode }) {
   const tramites = [
     {
       id: 'agua-alcantarillado',
@@ -62,29 +63,42 @@ export function App() {
         </div>
       </header>
 
-      {/* Seccion Principal de Contenido */}
+      {/* Contenido Principal */}
       <main className="main-content container-inner">
-        <section className="respuestas-section">
-          <div className="section-header">
-            <h2 className="title-respuestas">Respuestas</h2>
-            <p className="subtitle-respuestas">
-              Seleccione una categoría para consultar información, horarios y realizar reportes ciudadanos en línea.
-            </p>
-          </div>
+        {children ? (
+          /* Ruta de detalle: renderizar children (DetalleConsultaPage) */
+          children
+        ) : (
+          /* Ruta principal: tarjetas + consultas */
+          <>
+            <section className="respuestas-section">
+              <div className="section-header">
+                <h2 className="title-respuestas">Respuestas</h2>
+                <p className="subtitle-respuestas">
+                  Seleccione una categoría para consultar información, horarios y realizar reportes ciudadanos en línea.
+                </p>
+              </div>
 
-          {/* Grid de 3 Tarjetas en Columnas */}
-          <div className="tramites-grid">
-            {tramites.map((tramite) => (
-              <TarjetaTramite
-                key={tramite.id}
-                titulo={tramite.titulo}
-                descripcion={tramite.descripcion}
-                categoria={tramite.categoria}
-                icon={tramite.icon}
-              />
-            ))}
-          </div>
-        </section>
+              {/* Grid de 3 Tarjetas en Columnas */}
+              <div className="tramites-grid">
+                {tramites.map((tramite) => (
+                  <TarjetaTramite
+                    key={tramite.id}
+                    titulo={tramite.titulo}
+                    descripcion={tramite.descripcion}
+                    categoria={tramite.categoria}
+                    icon={tramite.icon}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {/* Sección de Consultas PQRS */}
+            <section className="consultas-section" style={{ marginTop: '3rem' }}>
+              <ConsultasPage />
+            </section>
+          </>
+        )}
       </main>
 
       {/* Footer Institucional */}
