@@ -1,8 +1,32 @@
-import { Droplet, Trash2, Lightbulb, Building2, Search, PhoneCall } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import * as configcat from 'configcat-js';
+import { Droplet, Trash2, Lightbulb, Building2, Search, PhoneCall, Calculator as CalcIcon } from 'lucide-react';
 import { TarjetaTramite } from './components/TarjetaTramite';
 import { ConsultasPage } from './pages/ConsultasPage';
 
 export function App({ children }: { children?: React.ReactNode }) {
+  const [isRestaEnabled, setIsRestaEnabled] = useState<boolean>(false);
+  const [numA, setNumA] = useState<number>(0);
+  const [numB, setNumB] = useState<number>(0);
+  const [resultado, setResultado] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Inicialización del cliente de ConfigCat con tu SDK Key
+    const client = configcat.getClient(
+      'configcat-sdk-1/jhbfCK88XEuIbxj9FBfJZw/4-w6RhtbyUydt3-PRLDccQ',
+      configcat.PollingMode.AutoPoll,
+      { pollIntervalSeconds: 60 }
+    );
+
+    client.getValueAsync('isRestaEnabled', false).then((value) => {
+      setIsRestaEnabled(value);
+    });
+
+    return () => {
+      client.dispose();
+    };
+  }, []);
+
   const tramites = [
     {
       id: 'agua-alcantarillado',
@@ -66,11 +90,49 @@ export function App({ children }: { children?: React.ReactNode }) {
       {/* Contenido Principal */}
       <main className="main-content container-inner">
         {children ? (
-          /* Ruta de detalle: renderizar children (DetalleConsultaPage) */
           children
         ) : (
-          /* Ruta principal: tarjetas + consultas */
           <>
+            {/* Widget Calculadora con Feature Flag */}
+            <section style={{ margin: '2rem 0', padding: '1.5rem', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+                <CalcIcon size={20} />
+                <h3 style={{ margin: 0 }}>Calculadora de Liquidación (TBD Demo)</h3>
+              </div>
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+                <input
+                  type="number"
+                  value={numA}
+                  onChange={(e) => setNumA(Number(e.target.value))}
+                  style={{ padding: '6px 10px', width: '100px', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                />
+                <input
+                  type="number"
+                  value={numB}
+                  onChange={(e) => setNumB(Number(e.target.value))}
+                  style={{ padding: '6px 10px', width: '100px', borderRadius: '4px', border: '1px solid #cbd5e1' }}
+                />
+                <button
+                  onClick={() => setResultado(numA + numB)}
+                  style={{ padding: '6px 14px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+                >
+                  Sumar
+                </button>
+                {/* Botón de Resta expuesto solo si el flag está activo */}
+                {isRestaEnabled && (
+                  <button
+                    onClick={() => setResultado(numA - numB)}
+                    style={{ padding: '6px 14px', background: '#059669', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+                  >
+                    Restar
+                  </button>
+                )}
+              </div>
+              {resultado !== null && (
+                <p style={{ marginTop: '10px', fontWeight: 'bold' }}>Resultado: {resultado}</p>
+              )}
+            </section>
+
             <section className="respuestas-section">
               <div className="section-header">
                 <h2 className="title-respuestas">Respuestas</h2>
@@ -79,7 +141,6 @@ export function App({ children }: { children?: React.ReactNode }) {
                 </p>
               </div>
 
-              {/* Grid de 3 Tarjetas en Columnas */}
               <div className="tramites-grid">
                 {tramites.map((tramite) => (
                   <TarjetaTramite
@@ -93,7 +154,6 @@ export function App({ children }: { children?: React.ReactNode }) {
               </div>
             </section>
 
-            {/* Sección de Consultas PQRS */}
             <section className="consultas-section" style={{ marginTop: '3rem' }}>
               <ConsultasPage />
             </section>
