@@ -51,4 +51,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/jmalua/mi_primer_proyecto_diplomado:latest
