@@ -75,3 +75,15 @@ EOF
 * Integración Día 1-2: Multiplicación.
 * Integración Día 3-4: División.
 * Integración Día 5+: Historial y retiro de toggles.
+
+---
+
+## 8. Acuerdos de Cierre y Acciones Próximo Sprint (Taller 4)
+* **Acción 1:** Toda nueva historia debe evaluarse contra los 4 criterios de TBD (Tamaño <= 1 día, Verticalidad, Feature Flag, Validación en producción) antes de entrar a Planning.
+* **Acción 2:** En la Planning, el Sprint Goal se redactará obligatoriamente desacoplando despliegue de release ("podrán hacer X, aunque Y esté en toggle").
+* **Acción 3:** Si un incremento no se puede integrar en menos de 24 horas, el equipo detiene nuevas tareas para ayudar a slicearlo o destrabar el pipeline.
+
+### ¿Qué cambia en nuestra próxima Planning?
+1. Ya no estimamos en puntos de historia tradicionales para acumular en 2 semanas; dimensionamos por batches de integración diaria (<= 1 día).
+2. Se definen las variables y estados del Feature Toggle desde la concepción de la tarea.
+3. Se planifica la secuencia de integración por días (Día 1-2, Día 3-4, Día 5+) priorizando tener el trunk siempre verde y desplegable.
