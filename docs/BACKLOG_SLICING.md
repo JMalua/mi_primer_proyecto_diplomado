@@ -1,16 +1,11 @@
-# 📋 Historias de Usuario Sliceadas (TBD)
+# 📋 Backlog y Planificación TBD (Taller 4)
 
-### Historia 1: Pipeline CI Básico y Dockerfile
-* **Objetivo:** Garantizar que cada commit ejecute validaciones automáticas y pruebe la construcción del contenedor.
-* **Slice TBD:** Configuración básica de GitHub Actions (ci.yml) y Dockerfile.
-* **Criterio de Aceptación:** El pipeline compila y valida en menos de 3 minutos.
+## 1. Diagnóstico del Backlog Original
+* #4 Resta con toggle: 🟢 Lista para TBD
+* #5 Resta en frontend: 🟢 Lista para TBD
+* #6 Multiplicación, división e historial: 🔴 Demasiado grande
 
-### Historia 2: Endpoint de Healthcheck
-* **Objetivo:** Permitir monitorear la disponibilidad de la aplicación en el despliegue.
-* **Slice TBD:** Ruta simple /health con respuesta HTTP 200 { status: "ok" }.
-* **Criterio de Aceptación:** Incluye prueba unitaria automatizada asociada.
-
-### Historia 3: Feature Toggle para Funcionalidad Nueva
-* **Objetivo:** Integrar código a main sin activar la funcionalidad prematuramente a los usuarios.
-* **Slice TBD:** Condicional por variable de entorno (ENABLE_FEATURE_X=false).
-* **Criterio de Aceptación:** Cobertura de pruebas validando el estado activo e inactivo.
+## 2. Re-sliceado de la Historia #6
+* Incremento 1: Multiplicación básica (≤ 1 día, con toggle)
+* Incremento 2: División y control de división por cero (≤ 1 día)
+* Incremento 3: Módulo de Historial y Rollout al 100% (≤ 1 día)

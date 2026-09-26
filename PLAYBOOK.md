@@ -64,3 +64,14 @@ cat << 'EOF' > PLAYBOOK.md
 * **Gestión de Flags:** Uso de variables de entorno / servicio tipo ConfigCat para alternar toggles sin necesidad de nuevo build.
 * **Métricas DORA prioritarias:** *Deployment Frequency* (Frecuencia de despliegue) y *Lead Time for Changes* (Tiempo desde el commit hasta producción).
 EOF
+## 6. Definition of Ready (DoR) para TBD (Taller 4)
+- [ ] Sliceada para integrarse a main en <= 1 día.
+- [ ] Criterios de aceptación verificables en producción.
+- [ ] Feature Toggle definido si aplica.
+- [ ] Sin dependencias bloqueantes externas.
+
+## 7. Planificación orientada a TBD
+* Sprint Goal: "Al final del sprint los usuarios podrán multiplicar y dividir, aunque el historial siga en toggle."
+* Integración Día 1-2: Multiplicación.
+* Integración Día 3-4: División.
+* Integración Día 5+: Historial y retiro de toggles.
