@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "configcat-js": "^9.6.1",
+    "configcat-react": "^5.1.0",
     "express": "^5.2.1",
     "lucide-react": "^1.33.0",
     "react": "^19.2.8",

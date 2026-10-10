@@ -1,31 +1,72 @@
 import { useState, useEffect } from 'react';
 import * as configcat from 'configcat-js';
-import { Droplet, Trash2, Lightbulb, Building2, Search, PhoneCall, Calculator as CalcIcon } from 'lucide-react';
+import { 
+  Droplet, 
+  Trash2, 
+  Lightbulb, 
+  Building2, 
+  Search, 
+  PhoneCall, 
+  Calculator as CalcIcon, 
+  CreditCard, 
+  Zap, 
+  CheckCircle2 
+} from 'lucide-react';
 import { TarjetaTramite } from './components/TarjetaTramite';
 import { ConsultasPage } from './pages/ConsultasPage';
 
 export function App({ children }: { children?: React.ReactNode }) {
+  // Estados para Feature Flags
   const [isRestaEnabled, setIsRestaEnabled] = useState<boolean>(false);
+  const [isPagosExpressEnabled, setIsPagosExpressEnabled] = useState<boolean>(false);
+
+  // Estados Calculadora
   const [numA, setNumA] = useState<number>(0);
   const [numB, setNumB] = useState<number>(0);
   const [resultado, setResultado] = useState<number | null>(null);
 
+  // Estados Pagos Express (Taller 6)
+  const [pagoMensaje, setPagoMensaje] = useState<string>('');
+  const [procesandoPago, setProcesandoPago] = useState<boolean>(false);
+
   useEffect(() => {
-    // Inicialización del cliente de ConfigCat con tu SDK Key
+    // Inicialización del cliente de ConfigCat
     const client = configcat.getClient(
       'configcat-sdk-1/jhbfCK88XEuIbxj9FBfJZw/4-w6RhtbyUydt3-PRLDccQ',
       configcat.PollingMode.AutoPoll,
-      { pollIntervalSeconds: 60 }
+      { pollIntervalSeconds: 5 }
     );
 
+    // 1. Evaluación de flag previa
     client.getValueAsync('isRestaEnabled', false).then((value) => {
       setIsRestaEnabled(value);
+    });
+
+    // 2. Evaluación de flag Taller 6: Pagos Express
+    client.getValueAsync('pagos-express-v1', false).then((value) => {
+      setIsPagosExpressEnabled(value);
     });
 
     return () => {
       client.dispose();
     };
   }, []);
+
+  const handleProcesarPagoExpress = () => {
+    setProcesandoPago(true);
+    setTimeout(() => {
+      setPagoMensaje('¡Transacción aprobada! Pago Express completado en 1 clic.');
+      setProcesandoPago(false);
+    }, 700);
+  };
+
+  const handleProcesarPagoTradicional = () => {
+    setProcesandoPago(true);
+    setTimeout(() => {
+      setPagoMensaje('Formulario validado y pago procesado por pasarela estándar.');
+      setProcesandoPago(false);
+    }, 1200);
+  };
 
   const tramites = [
     {
@@ -93,7 +134,112 @@ export function App({ children }: { children?: React.ReactNode }) {
           children
         ) : (
           <>
-            {/* Widget Calculadora con Feature Flag */}
+            {/* Widget Taller 6: Pagos Express (Feature Toggle: pagos-express-v1) */}
+            <section style={{ 
+              margin: '2rem 0', 
+              padding: '1.5rem', 
+              background: '#ffffff', 
+              borderRadius: '8px', 
+              border: '2px solid #e2e8f0',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <CreditCard size={22} color="#1e293b" />
+                  <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#1e293b' }}>
+                    Caja Virtual de Trámites
+                  </h3>
+                </div>
+                <span style={{ 
+                  fontSize: '0.8rem', 
+                  padding: '4px 8px', 
+                  borderRadius: '4px', 
+                  backgroundColor: isPagosExpressEnabled ? '#dcfce7' : '#f1f5f9',
+                  color: isPagosExpressEnabled ? '#15803d' : '#475569',
+                  fontWeight: 600
+                }}>
+                  Toggle pagos-express-v1: {isPagosExpressEnabled ? 'ACTIVO (ON)' : 'INACTIVO (OFF)'}
+                </span>
+              </div>
+
+              <p style={{ margin: '0 0 1rem 0', color: '#64748b', fontSize: '0.95rem' }}>
+                Total a liquidar por concepto de trámite catastral: <strong>$50.000 COP</strong>
+              </p>
+
+              {/* Si el flag pagos-express-v1 está activo, muestra la opción rápida */}
+              {isPagosExpressEnabled ? (
+                <div style={{ padding: '1rem', background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '6px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.5rem', color: '#166534', fontWeight: 600 }}>
+                    <Zap size={18} />
+                    <span>¡Pagos Express Habilitado!</span>
+                  </div>
+                  <p style={{ margin: '0 0 1rem 0', fontSize: '0.9rem', color: '#15803d' }}>
+                    Paga de inmediato sin ingresar datos bancarios adicionales usando tu firma digital registrada.
+                  </p>
+                  <button
+                    onClick={handleProcesarPagoExpress}
+                    disabled={procesandoPago}
+                    style={{
+                      padding: '10px 18px',
+                      background: '#16a34a',
+                      color: '#ffffff',
+                      border: 'none',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px'
+                    }}
+                  >
+                    <Zap size={16} />
+                    {procesandoPago ? 'Procesando pago seguro...' : 'Pagar en 1 Clic con Pagos Express'}
+                  </button>
+                </div>
+              ) : (
+                /* Flujo tradicional cuando el flag está en OFF */
+                <div style={{ padding: '1rem', background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '6px' }}>
+                  <p style={{ margin: '0 0 1rem 0', fontSize: '0.9rem', color: '#475569' }}>
+                    Flujo convencional: Diligencie el formulario con sus datos de tarjeta o PSE.
+                  </p>
+                  <button
+                    onClick={handleProcesarPagoTradicional}
+                    disabled={procesandoPago}
+                    style={{
+                      padding: '10px 18px',
+                      background: '#2563eb',
+                      color: '#ffffff',
+                      border: 'none',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      fontWeight: 600
+                    }}
+                  >
+                    {procesandoPago ? 'Cargando pasarela bancaria...' : 'Completar formulario y Pagar'}
+                  </button>
+                </div>
+              )}
+
+              {pagoMensaje && (
+                <div style={{ 
+                  marginTop: '1rem', 
+                  padding: '10px', 
+                  backgroundColor: '#eff6ff', 
+                  border: '1px solid #bfdbfe', 
+                  borderRadius: '4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  color: '#1d4ed8',
+                  fontSize: '0.9rem'
+                }}>
+                  <CheckCircle2 size={18} />
+                  <span>{pagoMensaje}</span>
+                </div>
+              )}
+            </section>
+
+            {/* Widget Calculadora con Feature Flag (isRestaEnabled) */}
             <section style={{ margin: '2rem 0', padding: '1.5rem', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
                 <CalcIcon size={20} />
@@ -118,7 +264,7 @@ export function App({ children }: { children?: React.ReactNode }) {
                 >
                   Sumar
                 </button>
-                {/* Botón de Resta expuesto solo si el flag está activo */}
+                {/* Botón de Resta expuesto solo si el flag isRestaEnabled está activo */}
                 {isRestaEnabled && (
                   <button
                     onClick={() => setResultado(numA - numB)}
@@ -133,6 +279,7 @@ export function App({ children }: { children?: React.ReactNode }) {
               )}
             </section>
 
+            {/* Catálogo de Trámites */}
             <section className="respuestas-section">
               <div className="section-header">
                 <h2 className="title-respuestas">Respuestas</h2>
@@ -154,6 +301,7 @@ export function App({ children }: { children?: React.ReactNode }) {
               </div>
             </section>
 
+            {/* Página de Consultas */}
             <section className="consultas-section" style={{ marginTop: '3rem' }}>
               <ConsultasPage />
             </section>
