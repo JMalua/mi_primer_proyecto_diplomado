@@ -1,0 +1,61 @@
+{
+  "info": {
+    "name": "Coworking Microservices",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Catalog - Health Check",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8001/health"
+      }
+    },
+    {
+      "name": "Catalog - Get All Spaces",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8001/spaces"
+      }
+    },
+    {
+      "name": "Catalog - Get Space by ID",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8001/spaces/1"
+      }
+    },
+    {
+      "name": "Orders - Health Check",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8002/health"
+      }
+    },
+    {
+      "name": "Orders - Create Order",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:8002/orders?space_id=1&user_email=test@example.com&hours=2",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8002",
+          "path": ["orders"],
+          "query": [
+            {"key": "space_id", "value": "1"},
+            {"key": "user_email", "value": "test@example.com"},
+            {"key": "hours", "value": "2"}
+          ]
+        }
+      }
+    },
+    {
+      "name": "Orders - List Orders",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8002/orders"
+      }
+    }
+  ]
+}
