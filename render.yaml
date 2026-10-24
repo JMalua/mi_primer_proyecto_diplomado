@@ -2,6 +2,7 @@ services:
   - type: web
     name: catalog-service
     env: python
+    plan: free
     rootDir: catalog-service
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
@@ -12,6 +13,7 @@ services:
   - type: web
     name: orders-service
     env: python
+    plan: free
     rootDir: orders-service
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
