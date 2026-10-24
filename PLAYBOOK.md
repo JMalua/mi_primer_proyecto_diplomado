@@ -148,3 +148,23 @@ En cada Retrospective se analizan las métricas del pipeline y la disciplina TBD
 ### Ronda Final de Cierre (Taller 6)
 > *"En una frase: Nuestro Review ahora valida valor observable en producción mediante toggles, y nuestra Retrospectiva protege la salud del pipeline y la disciplina diaria de integración."*
 EOF
+## 🚀 Despliegue en Render y Validación de Event-Driven Architecture
+
+### 1. URLs de los Servicios en Producción
+- **Catalog Service:** `https://catalog-service-ob28.onrender.com`
+- **Orders Service:** `https://orders-service-i7v9.onrender.com`
+
+### 2. Variables de Entorno Configuradas
+- En `catalog-service`: `ORDERS_SERVICE_URL=https://orders-service-i7v9.onrender.com`
+- En `orders-service`: `CATALOG_SERVICE_URL=https://catalog-service-ob28.onrender.com`
+- Versión de Python: `3.11.8`
+
+### 3. Matriz de Pruebas de Integración (Event-Driven)
+
+| Escenario | Endpoint Ejecutado | Código HTTP Esperado | Resultado Obtenido |
+| :--- | :--- | :--- | :--- |
+| **Consultar Espacios** | `GET /spaces` (catalog) | `200 OK` | Devuelve lista con `id: 1` disponible. |
+| **Disparar Evento (Inhabilitar)** | `PUT /spaces/1/availability` (catalog, `false`) | `200 OK` | `catalog` actualiza y notifica a `orders` vía webhook. |
+| **Validar Bloqueo de Reserva** | `POST /orders?space_id=1...` (orders) | `400 Bad Request` | Rechazado: `"Space 1 is currently marked as unavailable via SpaceChanged event"`. |
+| **Disparar Evento (Rehabilitar)** | `PUT /spaces/1/availability` (catalog, `true`) | `200 OK` | `catalog` notifica a `orders` la disponibilidad. |
+| **Validar Creación Exitosa** | `POST /orders?space_id=1...` (orders) | `200 OK` | Orden creada con total calculado ($30.0) consultando al catálogo. |
