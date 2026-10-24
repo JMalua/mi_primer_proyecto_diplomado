@@ -4,9 +4,11 @@ services:
     env: python
     plan: free
     rootDir: catalog-service
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
       - key: ORDERS_SERVICE_URL
         value: http://orders-service:10000
 
@@ -15,8 +17,10 @@ services:
     env: python
     plan: free
     rootDir: orders-service
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
       - key: CATALOG_SERVICE_URL
         value: http://catalog-service:10000
