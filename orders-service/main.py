@@ -1,56 +1,67 @@
-import os
-import httpx
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel
-import uvicorn
+import httpx
+import os
 
 app = FastAPI(title="Orders Service")
 
-CATALOG_SERVICE_URL = os.getenv("CATALOG_SERVICE_URL", "http://localhost:8001")
-orders = []
+CATALOG_SERVICE_URL = os.getenv("CATALOG_SERVICE_URL", "http://catalog-service:8001")
 
-class Order(BaseModel):
-    id: int
+ORDERS = []
+SPACE_AVAILABILITY = {}
+
+class SpaceEvent(BaseModel):
+    event: str
     space_id: int
-    space_name: str
-    user_email: str
-    hours: int
-    total_price: float
+    name: str
+    available: bool
+    timestamp: str
 
 @app.get("/health")
 def health():
     return {"status": "ok", "service": "orders-service"}
 
-@app.get("/orders")
-def get_orders():
-    return orders
+@app.post("/events/space-changed")
+def handle_space_changed(event: SpaceEvent):
+    SPACE_AVAILABILITY[event.space_id] = event.available
+    print(f"[Orders Event-Driven] Evento recibido: Espacio {event.space_id} disponible={event.available}")
+    return {"status": "event_processed", "space_id": event.space_id, "available": event.available}
 
 @app.post("/orders")
-def create_order(space_id: int, user_email: str, hours: int):
-    try:
-        with httpx.Client(timeout=3.0) as client:
-            response = client.get(f"{CATALOG_SERVICE_URL}/spaces/{space_id}")
-            if response.status_code == 404:
-                raise HTTPException(status_code=404, detail="Space not found in catalog")
-            response.raise_for_status()
-            space = response.json()
-    except (httpx.ConnectError, httpx.TimeoutException):
-        raise HTTPException(status_code=503, detail="Catalog service unavailable")
-    except KeyError:
-        raise HTTPException(status_code=500, detail="Contract error: missing expected attributes")
+async def create_order(space_id: int, user_email: str, hours: int):
+    # Validacion por evento recibido
+    if SPACE_AVAILABILITY.get(space_id) is False:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Space {space_id} is currently marked as unavailable via SpaceChanged event"
+        )
 
-    total_price = space["price_per_hour"] * hours
+    try:
+        async with httpx.AsyncClient(timeout=3.0) as client:
+            res = await client.get(f"{CATALOG_SERVICE_URL}/spaces/{space_id}")
+            if res.status_code == 404:
+                raise HTTPException(status_code=404, detail="Space not found")
+            res.raise_for_status()
+            space_data = res.json()
+    except httpx.RequestError:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="Catalog service is down")
+
+    try:
+        price_per_hour = space_data["price_per_hour"]
+    except KeyError:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Contract mismatch")
 
     order = {
-        "id": len(orders) + 1,
+        "id": len(ORDERS) + 1,
         "space_id": space_id,
-        "space_name": space["name"],
+        "space_name": space_data["name"],
         "user_email": user_email,
         "hours": hours,
-        "total_price": total_price,
+        "total_price": price_per_hour * hours
     }
-    orders.append(order)
+    ORDERS.append(order)
     return order
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8002, reload=True)
+@app.get("/orders")
+def list_orders():
+    return ORDERS

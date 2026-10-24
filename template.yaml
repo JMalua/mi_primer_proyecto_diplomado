@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Migracion Event-Driven Coworking Microservices
+
+Resources:
+  CatalogApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+
+  CatalogFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda-catalog/
+      Handler: handler.lambda_handler
+      Runtime: python3.11
+      Events:
+        GetSpaces:
+          Type: Api
+          Properties:
+            RestApiId: !Ref CatalogApi
+            Path: /spaces
+            Method: get
+        UpdateSpace:
+          Type: Api
+          Properties:
+            RestApiId: !Ref CatalogApi
+            Path: /spaces/{id}
+            Method: put
+
+  ConsumerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda-consumer/
+      Handler: handler.lambda_handler
+      Runtime: python3.11
